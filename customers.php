@@ -24,6 +24,11 @@ $file = $options["f"] ?? __DIR__.'/test/customer_data.json';
 $limit = $options["d"] ? (integer) $options["d"] : 40;
 $latitude = $options["a"] ? (float) $options["a"] : 52.951458;
 $longitude = $options["o"] ? (float) $options["o"] : -1.142332;
+if (!file_exists($file) || !is_readable($file)) {
+    throw new \InvalidArgumentException(
+        "Selected file does not exists or is not readable"
+    );
+}
 
 $builder = new RecordsBuilder($latitude, $longitude);
 $customers = new RecordsHeap();
